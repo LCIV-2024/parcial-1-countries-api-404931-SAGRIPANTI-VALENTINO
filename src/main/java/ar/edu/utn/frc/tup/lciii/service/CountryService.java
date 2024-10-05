@@ -108,7 +108,7 @@ public class CountryService {
                 }
                 return response;
         }
-        public CountryDTO getCountryMostBorders() { 
+        public CountryDTO getCountryMostBorders() {
                 Integer aux = 0;
                 List<Country> allCountries = getAllCountries();
 
