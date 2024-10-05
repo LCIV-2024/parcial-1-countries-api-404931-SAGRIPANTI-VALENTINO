@@ -94,29 +94,34 @@ public class CountryService {
 
                 return response;
         }
-        public List<CountryDTO> getCountriesByLanguage(String language) { //TODO Chequear VALIDAR QUE NO SEA NULO CON LOS 500
+        public List<CountryDTO> getCountriesByLanguage(String language) {
                 List<CountryDTO> response = new ArrayList<>();
                 List<Country> allCountries = getAllCountries();
 
                 for (Country c : allCountries) {
                         //System.out.println(c.getLanguages().toString());
-                        if (c.getLanguages().containsValue(language)) {
-                                response.add(mapToDTO(c));
+                        if (c.getLanguages() != null) {
+                                if (c.getLanguages().containsValue(language)) {
+                                        response.add(mapToDTO(c));
+                                }
                         }
                 }
                 return response;
         }
-        public CountryDTO getCountryMostBorders() {
+        public CountryDTO getCountryMostBorders() { 
                 Integer aux = 0;
                 List<Country> allCountries = getAllCountries();
 
                 CountryDTO response = new CountryDTO();
                 for (Country c : allCountries) {
                         System.out.println(c.toString());
-                        if (c.getBorders().size() > aux) {
-                                aux = c.getBorders().size();
-                                response = mapToDTO(c);
+                        if (c.getBorders() != null) {
+                                if (c.getBorders().size() > aux) {
+                                        aux = c.getBorders().size();
+                                        response = mapToDTO(c);
+                                }
                         }
+
                 }
                 return response;
         }
