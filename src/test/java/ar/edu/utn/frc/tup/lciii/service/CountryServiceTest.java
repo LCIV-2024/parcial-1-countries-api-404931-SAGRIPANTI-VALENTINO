@@ -4,6 +4,7 @@ import ar.edu.utn.frc.tup.lciii.model.Country;
 import ar.edu.utn.frc.tup.lciii.model.CountryDTO;
 import ar.edu.utn.frc.tup.lciii.repository.CountryRepository;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -25,8 +26,6 @@ class CountryServiceTest {
     private CountryService countryService;
     @MockBean
     private RestTemplate restTemplate;
-//    @MockBean
-//    private ModelMapper modelMapper;
     @MockBean
     private CountryRepository countryRepository;
     @Test
@@ -79,12 +78,14 @@ class CountryServiceTest {
     @Test
     void getCountryMostBorders() {
         //GIVEN
+        CountryService countryService1 = Mockito.spy(countryService);
         List<Country> responseApiMock = List.of(
                 new Country("nombre", 1, 12, "codWin", "region", List.of("string", "string"), Map.of("hol", "hola")),
                 new Country("nombre", 1, 12, "cod", "region", List.of("string"), Map.of("hol", "hola")),
                 new Country("nombre", 1, 12, "cod", "region", List.of("string"), Map.of("hol", "hola"))
         );
         //WHEN
+        Mockito.doReturn(responseApiMock).when(countryService1).getAllCountries();
         when(countryService.getAllCountries()).thenReturn(responseApiMock);
         //THEN
         CountryDTO response = countryService.getCountryMostBorders();
