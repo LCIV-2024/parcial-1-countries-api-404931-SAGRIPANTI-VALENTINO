@@ -110,5 +110,10 @@ class CountryServiceTest {
 
     @Test
     void mapToDTO() {
+        Country aux = new Country("nombre", 1, 12, "codWin", "region", List.of("string", "string"), Map.of("hol", "hola"));
+        CountryDTO test = new CountryDTO("codWin", "nombre");
+        CountryDTO response = countryService.mapToDTO(aux);
+
+        assertEquals(test.getCode(), response.getCode());
     }
 }
