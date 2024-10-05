@@ -27,4 +27,8 @@ public class CountryController {
     public ResponseEntity<CountryDTO> getCountryByCode(@PathVariable(name = "code") String code) {
         return ResponseEntity.ok(countryService.getCountryByCode(code));
     }
+    @GetMapping("countries/{continent}/continent")
+    public ResponseEntity<List<CountryDTO>> getContriesByContinent(@PathVariable(value = "continent") String continent) {
+        return ResponseEntity.ok(countryService.getContriesByContinent(continent));
+    }
 }

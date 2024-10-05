@@ -55,7 +55,8 @@ public class CountryService {
                 List<Country> countries = getAllCountries();
                 List<CountryDTO> response = new ArrayList<>();
                 countries.forEach(c -> {
-                        response.add(modelMapper.map(c, CountryDTO.class));
+                        //response.add(modelMapper.map(c, CountryDTO.class)); //TODO Chequear
+                        response.add(mapToDTO(c));
                 });
                 return response;
         }
@@ -68,7 +69,7 @@ public class CountryService {
                 }
                 return null;
         }
-
+        //TODO ver lo del code que no lo trae
         public CountryDTO getCountryByCode(String code) {
                 List<CountryDTO> allCountries = mapToDTOList();
                 for (CountryDTO c : allCountries) {
@@ -77,5 +78,18 @@ public class CountryService {
                         }
                 }
                 return null;
+        }
+        public List<CountryDTO> getContriesByContinent(String continent) {
+                List<CountryDTO> response = new ArrayList<>();
+                List<Country> allCountries = getAllCountries();
+
+                for (Country c : allCountries) {
+                        //System.out.println(c.getRegion());
+                        if (c.getRegion().equals(continent)) {
+                                response.add(mapToDTO(c));
+                        }
+                }
+
+                return response;
         }
 }
