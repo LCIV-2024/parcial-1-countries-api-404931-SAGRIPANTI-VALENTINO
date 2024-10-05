@@ -41,10 +41,12 @@ public class CountryService {
                         .population(((Number) countryData.get("population")).longValue())
                         .area(((Number) countryData.get("area")).doubleValue())
                         .region((String) countryData.get("region"))
+                        .code((String) nameData.get("cca3")) //agregue esto
+                        .borders((List<String>) nameData.get("borders")) //con esto
                         .languages((Map<String, String>) countryData.get("languages"))
                         .build();
         }
-
+        //No mapea el code
         private CountryDTO mapToDTO(Country country) {
                 return new CountryDTO(country.getCode(), country.getName());
         }
@@ -56,5 +58,15 @@ public class CountryService {
                         response.add(modelMapper.map(c, CountryDTO.class));
                 });
                 return response;
+        }
+        public CountryDTO getCountryByName(String country) {
+                List<CountryDTO> allCountries = mapToDTOList();
+                for (CountryDTO c : allCountries) {
+                        if (c.getName().equals(country)) {
+                                return c;
+                        }
+                        break;
+                }
+                return null;
         }
 }
