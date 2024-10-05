@@ -37,7 +37,7 @@ public class CountryService {
          * Agregar mapeo de campo cca3 (String)
          * Agregar mapeo campos borders ((List<String>))
          */
-        private Country mapToCountry(Map<String, Object> countryData) {
+        public Country mapToCountry(Map<String, Object> countryData) {
                 Map<String, Object> nameData = (Map<String, Object>) countryData.get("name");
                 return Country.builder()
                         .name((String) nameData.get("common"))
@@ -45,12 +45,12 @@ public class CountryService {
                         .area(((Number) countryData.get("area")).doubleValue())
                         .region((String) countryData.get("region"))
                         .code((String) countryData.get("cca3"))
-                        .borders((List<String>) countryData.get("borders")) //TODO CHEQUEAR
+                        .borders((List<String>) countryData.get("borders"))
                         .languages((Map<String, String>) countryData.get("languages"))
                         .build();
         }
 
-        private CountryDTO mapToDTO(Country country) {
+        public CountryDTO mapToDTO(Country country) {
                 return new CountryDTO(country.getCode(), country.getName());
         }
 
@@ -71,7 +71,6 @@ public class CountryService {
                 }
                 return null;
         }
-        //DO ver lo del code que no lo trae
         public CountryDTO getCountryByCode(String code) {
                 List<CountryDTO> allCountries = mapToDTOList();
                 for (CountryDTO c : allCountries) {
