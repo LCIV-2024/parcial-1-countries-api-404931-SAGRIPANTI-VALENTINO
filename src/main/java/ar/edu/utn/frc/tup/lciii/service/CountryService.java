@@ -1,10 +1,12 @@
 package ar.edu.utn.frc.tup.lciii.service;
 
+import ar.edu.utn.frc.tup.lciii.entities.CountryEntity;
 import ar.edu.utn.frc.tup.lciii.model.Country;
 import ar.edu.utn.frc.tup.lciii.model.CountryDTO;
 import ar.edu.utn.frc.tup.lciii.repository.CountryRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -56,7 +58,6 @@ public class CountryService {
                 List<Country> countries = getAllCountries();
                 List<CountryDTO> response = new ArrayList<>();
                 countries.forEach(c -> {
-                        //response.add(modelMapper.map(c, CountryDTO.class)); //TODO Chequear
                         response.add(mapToDTO(c));
                 });
                 return response;
@@ -93,12 +94,12 @@ public class CountryService {
 
                 return response;
         }
-        public List<CountryDTO> getCountriesByLanguage(String language) { //TODO Chequear
+        public List<CountryDTO> getCountriesByLanguage(String language) { //TODO Chequear VALIDAR QUE NO SEA NULO CON LOS 500
                 List<CountryDTO> response = new ArrayList<>();
                 List<Country> allCountries = getAllCountries();
 
                 for (Country c : allCountries) {
-                        System.out.println(c.getLanguages().toString());
+                        //System.out.println(c.getLanguages().toString());
                         if (c.getLanguages().containsValue(language)) {
                                 response.add(mapToDTO(c));
                         }
@@ -116,6 +117,23 @@ public class CountryService {
                                 aux = c.getBorders().size();
                                 response = mapToDTO(c);
                         }
+                }
+                return response;
+        }
+        public List<CountryDTO> saveCountries(Integer amount) {
+                if (amount > 10) {
+                        throw new RuntimeException("La cantidad no debe superar los 10 paises");
+                }
+                List<Country> allCountries = getAllCountries();
+                List<CountryEntity> entities = new ArrayList<>();
+                List<CountryDTO> response = new ArrayList<>();
+                List<Country> subList = allCountries.subList(0, amount);
+
+                for (Country c : subList) {
+                        entities.add(countryRepository.save(modelMapper.map(c, CountryEntity.class)));
+                }
+                for (CountryEntity ce : entities) {
+                        response.add(mapToDTO(modelMapper.map(ce, Country.class)));
                 }
                 return response;
         }

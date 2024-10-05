@@ -1,4 +1,5 @@
 package ar.edu.utn.frc.tup.lciii.controllers;
+import ar.edu.utn.frc.tup.lciii.dtos.common.AmountDTO;
 import ar.edu.utn.frc.tup.lciii.model.CountryDTO;
 import ar.edu.utn.frc.tup.lciii.service.CountryService;
 import lombok.RequiredArgsConstructor;
@@ -38,5 +39,9 @@ public class CountryController {
     @GetMapping("/countries/most-borders")
     public ResponseEntity<CountryDTO> getCountryMostBorders() {
         return ResponseEntity.ok(countryService.getCountryMostBorders());
+    }
+    @PostMapping("/countries")
+    public ResponseEntity<List<CountryDTO>> saveAmountCountries(@RequestBody AmountDTO amountDTO) {
+        return ResponseEntity.ok(countryService.saveCountries(amountDTO.getAmountOfCountryToSave()));
     }
 }
