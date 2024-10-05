@@ -1,6 +1,7 @@
 package ar.edu.utn.frc.tup.lciii.service;
 
 import ar.edu.utn.frc.tup.lciii.model.Country;
+import ar.edu.utn.frc.tup.lciii.model.CountryDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,5 +18,12 @@ class CountryServiceIT {
         List<Country> response = countryService.getAllCountries();
         assertNotNull(response);
         assertEquals(250, response.size());
+    }
+    @Test
+    void borders() {
+        CountryDTO test = new CountryDTO("CHN", "China");
+        CountryDTO response = countryService.getCountryMostBorders();
+
+        assertEquals(test, response);
     }
 }
