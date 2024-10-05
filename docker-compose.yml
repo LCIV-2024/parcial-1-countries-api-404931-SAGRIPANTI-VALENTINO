@@ -1,0 +1,8 @@
+services:
+  api_parcial:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 8080:8080
