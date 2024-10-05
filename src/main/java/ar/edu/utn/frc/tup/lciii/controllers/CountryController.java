@@ -23,5 +23,8 @@ public class CountryController {
     public ResponseEntity<CountryDTO> getCountryByName(@PathVariable(name = "country") String country) {
         return ResponseEntity.ok(countryService.getCountryByName(country));
     }
-
+    @GetMapping("/countries/{code}")
+    public ResponseEntity<CountryDTO> getCountryByCode(@PathVariable(name = "code") String code) {
+        return ResponseEntity.ok(countryService.getCountryByCode(code));
+    }
 }

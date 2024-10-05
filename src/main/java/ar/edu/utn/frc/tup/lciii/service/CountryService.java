@@ -65,7 +65,16 @@ public class CountryService {
                         if (c.getName().equals(country)) {
                                 return c;
                         }
-                        
+                }
+                return null;
+        }
+
+        public CountryDTO getCountryByCode(String code) {
+                List<CountryDTO> allCountries = mapToDTOList();
+                for (CountryDTO c : allCountries) {
+                        if (c.getCode().equals(code)) {
+                                return c;
+                        }
                 }
                 return null;
         }
