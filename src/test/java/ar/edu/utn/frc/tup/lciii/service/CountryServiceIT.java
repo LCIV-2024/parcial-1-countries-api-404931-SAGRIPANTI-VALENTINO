@@ -32,4 +32,10 @@ class CountryServiceIT {
         CountryDTO response = countryService.getCountryByCode("CHN");
         assertEquals(test, response);
     }
+    @Test
+    void byName() {
+        CountryDTO test = new CountryDTO("ARG", "Argentina");
+        CountryDTO response = countryService.getCountryByName("Argentina");
+        assertEquals(test, response);
+    }
 }
