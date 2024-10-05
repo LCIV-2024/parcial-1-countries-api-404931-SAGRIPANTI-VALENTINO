@@ -38,4 +38,10 @@ class CountryServiceIT {
         CountryDTO response = countryService.getCountryByName("Argentina");
         assertEquals(test, response);
     }
+    @Test
+    void byContinent() {
+        CountryDTO test = new CountryDTO("TWN", "Taiwan");
+        List<CountryDTO> response = countryService.getContriesByContinent("Asia");
+        assertEquals(test, response.get(0));
+    }
 }
