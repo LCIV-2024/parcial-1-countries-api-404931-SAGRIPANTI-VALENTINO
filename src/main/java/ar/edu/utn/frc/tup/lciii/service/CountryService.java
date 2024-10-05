@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -42,7 +43,7 @@ public class CountryService {
                         .area(((Number) countryData.get("area")).doubleValue())
                         .region((String) countryData.get("region"))
                         .code((String) countryData.get("cca3"))
-                        .borders((List<String>) countryData.get("borders"))
+                        .borders((List<String>) countryData.get("borders")) //TODO CHEQUEAR
                         .languages((Map<String, String>) countryData.get("languages"))
                         .build();
         }
@@ -92,7 +93,7 @@ public class CountryService {
 
                 return response;
         }
-        public List<CountryDTO> getCountriesByLanguage(String language) {
+        public List<CountryDTO> getCountriesByLanguage(String language) { //TODO Chequear
                 List<CountryDTO> response = new ArrayList<>();
                 List<Country> allCountries = getAllCountries();
 
@@ -102,7 +103,20 @@ public class CountryService {
                                 response.add(mapToDTO(c));
                         }
                 }
+                return response;
+        }
+        public CountryDTO getCountryMostBorders() {
+                Integer aux = 0;
+                List<Country> allCountries = getAllCountries();
 
+                CountryDTO response = new CountryDTO();
+                for (Country c : allCountries) {
+                        System.out.println(c.toString());
+                        if (c.getBorders().size() > aux) {
+                                aux = c.getBorders().size();
+                                response = mapToDTO(c);
+                        }
+                }
                 return response;
         }
 }
