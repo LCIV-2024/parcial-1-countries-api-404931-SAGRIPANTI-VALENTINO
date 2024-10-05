@@ -31,4 +31,8 @@ public class CountryController {
     public ResponseEntity<List<CountryDTO>> getContriesByContinent(@PathVariable(value = "continent") String continent) {
         return ResponseEntity.ok(countryService.getContriesByContinent(continent));
     }
+    @GetMapping("/countries/{language}/language")
+    public ResponseEntity<List<CountryDTO>> getCountriesByLanguage(@PathVariable(value = "language") String language) {
+        return ResponseEntity.ok(countryService.getCountriesByLanguage(language));
+    }
 }

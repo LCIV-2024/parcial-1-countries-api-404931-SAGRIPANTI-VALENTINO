@@ -41,12 +41,12 @@ public class CountryService {
                         .population(((Number) countryData.get("population")).longValue())
                         .area(((Number) countryData.get("area")).doubleValue())
                         .region((String) countryData.get("region"))
-                        .code((String) nameData.get("cca3")) //agregue esto
-                        .borders((List<String>) nameData.get("borders")) //con esto
+                        .code((String) countryData.get("cca3"))
+                        .borders((List<String>) countryData.get("borders"))
                         .languages((Map<String, String>) countryData.get("languages"))
                         .build();
         }
-        //No mapea el code
+
         private CountryDTO mapToDTO(Country country) {
                 return new CountryDTO(country.getCode(), country.getName());
         }
@@ -69,7 +69,7 @@ public class CountryService {
                 }
                 return null;
         }
-        //TODO ver lo del code que no lo trae
+        //DO ver lo del code que no lo trae
         public CountryDTO getCountryByCode(String code) {
                 List<CountryDTO> allCountries = mapToDTOList();
                 for (CountryDTO c : allCountries) {
@@ -86,6 +86,19 @@ public class CountryService {
                 for (Country c : allCountries) {
                         //System.out.println(c.getRegion());
                         if (c.getRegion().equals(continent)) {
+                                response.add(mapToDTO(c));
+                        }
+                }
+
+                return response;
+        }
+        public List<CountryDTO> getCountriesByLanguage(String language) {
+                List<CountryDTO> response = new ArrayList<>();
+                List<Country> allCountries = getAllCountries();
+
+                for (Country c : allCountries) {
+                        System.out.println(c.getLanguages().toString());
+                        if (c.getLanguages().containsValue(language)) {
                                 response.add(mapToDTO(c));
                         }
                 }
