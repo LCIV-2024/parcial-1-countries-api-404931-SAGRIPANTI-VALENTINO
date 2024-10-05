@@ -19,7 +19,7 @@ public class CountryController {
     public ResponseEntity<List<CountryDTO>> getAllCountries() {
         return ResponseEntity.ok(countryService.mapToDTOList());
     }
-    @GetMapping("/countries?name= {country}")
+    @GetMapping("/countries/{country}")
     public ResponseEntity<CountryDTO> getCountryByName(@PathVariable(name = "country") String country) {
         return ResponseEntity.ok(countryService.getCountryByName(country));
     }

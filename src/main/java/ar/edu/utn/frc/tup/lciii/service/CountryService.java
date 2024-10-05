@@ -65,7 +65,7 @@ public class CountryService {
                         if (c.getName().equals(country)) {
                                 return c;
                         }
-                        break;
+                        
                 }
                 return null;
         }
