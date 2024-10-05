@@ -101,11 +101,16 @@ class CountryServiceTest {
     void mapToCountry() {
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> auxMap1 = Map.of("commom", "nombre");
-        //map.put("commom", "nombre");
+        map.put("population", 1);
+        map.put("area", 12);
+        map.put("region", "region");
+        map.put("cca3", "codWin");
         Country aux = new Country("nombre", 1, 12, "codWin", "region", List.of("string", "string"), Map.of("hol", "hola"));
         map.put("name", Map.of("commom",auxMap1));
         Country test = countryService.mapToCountry(map);
         System.out.println(test);
+
+        assertEquals("codWin", test.getCode());
     }
 
     @Test
